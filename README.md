@@ -42,8 +42,8 @@ Siempre en hora de Chile, también cuando el país cambia de horario.
 | Fin de semana                                                     | No marca                                                            |
 | Feriado en Chile                                                  | No marca                                                            |
 | No pudo saber si hoy es feriado                                   | No marca y avisa                                                    |
-| Día libre en el calendario: vacaciones, licencia, permiso o libre | No marca                                                            |
-| No pudo leer el calendario                                        | No marca y avisa                                                    |
+| Día libre en el calendario de Brinca o en el personal: vacaciones, licencia, permiso o libre | No marca                                                            |
+| No pudo leer alguno de los dos calendarios                        | No marca y avisa                                                    |
 | Ese turno ya se marcó hoy                                         | No marca                                                            |
 | Llegó más de 30 minutos tarde a la hora del turno                 | No marca y avisa. Marcar a destiempo sería registrar una hora falsa |
 | Buk pide un código o una verificación extra al entrar             | No marca y avisa                                                    |
@@ -84,7 +84,7 @@ Un «sin confirmar» cuenta como intento: no se reintenta ese día, porque pudo 
 - No corrige marcas pasadas ni marca días anteriores.
 - No inventa una ubicación. Si Buk la exige para marcar, se decide aparte.
 - No guarda la clave en ningún archivo, ni la imprime, ni siquiera en los errores.
-- No decide si Marcelo trabajó: eso lo dice su calendario. Si está enfermo y no lo anota, marca.
+- No decide si Marcelo trabajó: eso lo dicen sus calendarios. Si está enfermo y no lo anota, marca.
 
 ## Cómo sabremos que funciona
 
