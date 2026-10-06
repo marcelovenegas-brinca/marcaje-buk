@@ -99,4 +99,8 @@ Un «sin confirmar» cuenta como intento: no se reintenta ese día, porque pudo 
 
 - Si Buk deja entrar desde un servidor de GitHub sin pedir verificación. Se responde en el paso 8,
   con una prueba que no marca.
-- Si Buk acepta una marca sin ubicación. Se responde con la primera marca real.
+- Buk sí acepta una marca sin ubicación, respondido el 2-oct por la versión del Mac: avisó «No
+  pudimos obtener tu ubicación exacta. Puedes marcar igualmente», y el comprobante muestra la
+  entrada registrada a las 08:30:26. Queda por decidir en el paso 5 cómo se trata ese aviso.
+- Cómo se confirma una marca desde el servidor. Entre el 29-sep y el 5-oct el mensaje en pantalla
+  falló tres veces como confirmación y el comprobante que Buk manda por correo acertó las tres.
