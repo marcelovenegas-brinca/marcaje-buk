@@ -1,6 +1,6 @@
 # 0005, los días libres salen de los dos calendarios
 
-Estado: aceptada, 3-oct-2026
+Estado: aceptada, 3-oct-2026. La forma de leer los calendarios, con enlaces iCal, la reemplaza 0006: ahora se leen con el conector de Google Calendar. Lo demás sigue vigente
 
 ## Contexto
 

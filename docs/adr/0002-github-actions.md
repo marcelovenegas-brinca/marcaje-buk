@@ -1,6 +1,6 @@
 # 0002, corre en GitHub Actions
 
-Estado: aceptada, 25-sep-2026
+Estado: reemplazada por 0006, 11-oct-2026. Aceptada el 25-sep-2026
 
 ## Contexto
 

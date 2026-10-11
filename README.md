@@ -1,7 +1,7 @@
 # Marcaje en Buk
 
 Marca la entrada y la salida de Marcelo Venegas en el portal de Buk de Brinca, todos los días
-hábiles, desde un servidor de GitHub. No depende del Mac.
+hábiles, desde una rutina de Claude en la nube. No depende del computador.
 
 > Estado: en construcción. La versión que marca hoy es la del Mac, en `mac/`. Este README se
 > completa paso a paso; las secciones de uso se escriben cuando exista lo que describen.
@@ -14,7 +14,7 @@ se le olvida. Son dos clics al día, unos 450 al año, y cada olvido se corrige 
 Entre el 22 y el 25 de septiembre de 2026 funcionó una primera versión en el Mac. Marcó bien, pero
 depende de que el Mac esté encendido y con Chrome abierto, y falló cinco veces por causas del Mac:
 el Escritorio protegido por macOS, el Mac dormido, sin red al despertar, una ventana de Meet
-adelante. Este repo lleva el marcaje a un servidor.
+adelante. Este repo lleva el marcaje a la nube.
 
 ## La regla que gobierna todo
 
@@ -64,7 +64,7 @@ sin lista, no marca, porque no puede saber qué días son feriados.
 
 ### Cómo marca
 
-1. Entra a Buk con el correo y la clave de Marcelo, que viven solo en GitHub Secrets.
+1. Entra a Buk con el correo y la clave de la persona, que viven solo en su entorno de Claude.
 2. Aprieta el botón del turno en el portal.
 3. Lee la respuesta de Buk y la clasifica en una de tres: marcado, rechazado o sin confirmar.
 4. Deja una línea en `registro.md` con la hora, el turno, el resultado y el texto de Buk.
@@ -76,8 +76,8 @@ Un «sin confirmar» cuenta como intento: no se reintenta ese día, porque pudo 
 | Qué pasó                                   | Cómo se entera Marcelo                                                 |
 | ------------------------------------------ | ---------------------------------------------------------------------- |
 | Marcó                                      | Buk manda su comprobante al correo personal                            |
-| Falló, fue rechazado o quedó sin confirmar | GitHub manda un correo                                                 |
-| El servidor ni siquiera corrió             | Healthchecks.io manda un correo si a la hora esperada no recibió señal |
+| Falló, fue rechazado o quedó sin confirmar | La rutina le avisa                                                     |
+| La rutina ni siquiera corrió               | No llega el comprobante de Buk. Healthchecks queda para después (ADR 0006) |
 
 ### Lo que no hace
 
@@ -97,7 +97,7 @@ Un «sin confirmar» cuenta como intento: no se reintenta ese día, porque pudo 
 
 ## Preguntas abiertas
 
-- Si Buk deja entrar desde un servidor de GitHub sin pedir verificación. Se responde en el paso 8,
+- Si Buk deja entrar desde la nube de Claude sin pedir verificación. Se responde en el hito 1,
   con una prueba que no marca.
 - Buk sí acepta una marca sin ubicación, respondido el 2-oct por la versión del Mac: avisó «No
   pudimos obtener tu ubicación exacta. Puedes marcar igualmente», y el comprobante muestra la
