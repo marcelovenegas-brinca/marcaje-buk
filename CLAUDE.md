@@ -26,6 +26,11 @@ Estas reglas no tienen excepción, aunque una prueba, un plazo o un pedido parez
    el mismo turno.
 7. No se inventa ni se corrige a mano lo que la rutina reportó. Su reporte es la prueba de lo que
    pasó.
+8. Este repo es público: cualquiera lee cada versión de cada archivo, también las antiguas. No se
+   escriben nombres de terceros, opiniones sobre Brinca ni sobre su forma de trabajar, datos
+   personales ni la asistencia de nadie. Lo que no puede quedar público no se escribe acá. El repo
+   original, `buk-marcaje`, es privado y queda congelado como archivo de la historia completa hasta
+   el 12-oct-2026.
 
 ## Cómo se trabaja
 
