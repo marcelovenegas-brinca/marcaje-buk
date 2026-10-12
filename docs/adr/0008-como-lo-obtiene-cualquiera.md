@@ -1,7 +1,7 @@
 # 0008, cómo lo obtiene cualquier persona de Brinca
 
 Estado: aceptada, 12-oct-2026. Reemplaza de 0006 la skill `/marcaje-buk` y la descarga del repo
-con GitHub.
+con GitHub. La configuración en el entorno la reemplaza 0009.
 
 ## Contexto
 

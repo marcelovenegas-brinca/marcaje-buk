@@ -1,0 +1,140 @@
+{
+  "pais": "CL",
+  "anio": 2026,
+  "revisado": "2026-10-12",
+  "fuentes": {
+    "boostr": "https://api.boostr.cl/holidays/2026.json",
+    "google": "Calendario «Festivos en Chile» de Google, solo los marcados «Día festivo»"
+  },
+  "regla": "Si una fecha aparece en cualquiera de las fuentes, es feriado (ADR 0004)",
+  "feriados": [
+    {
+      "fecha": "2026-01-01",
+      "nombre": "Año Nuevo",
+      "fuentes": [
+        "boostr",
+        "google"
+      ]
+    },
+    {
+      "fecha": "2026-04-03",
+      "nombre": "Viernes Santo",
+      "fuentes": [
+        "boostr",
+        "google"
+      ]
+    },
+    {
+      "fecha": "2026-04-04",
+      "nombre": "Sábado Santo",
+      "fuentes": [
+        "boostr",
+        "google"
+      ]
+    },
+    {
+      "fecha": "2026-05-01",
+      "nombre": "Día Nacional del Trabajo",
+      "fuentes": [
+        "boostr",
+        "google"
+      ]
+    },
+    {
+      "fecha": "2026-05-21",
+      "nombre": "Día de las Glorias Navales",
+      "fuentes": [
+        "boostr",
+        "google"
+      ]
+    },
+    {
+      "fecha": "2026-06-21",
+      "nombre": "Día Nacional de los Pueblos Indígenas",
+      "fuentes": [
+        "boostr",
+        "google"
+      ]
+    },
+    {
+      "fecha": "2026-06-29",
+      "nombre": "San Pedro y San Pablo",
+      "fuentes": [
+        "boostr",
+        "google"
+      ]
+    },
+    {
+      "fecha": "2026-07-16",
+      "nombre": "Día de la Virgen del Carmen",
+      "fuentes": [
+        "boostr",
+        "google"
+      ]
+    },
+    {
+      "fecha": "2026-08-15",
+      "nombre": "Asunción de la Virgen",
+      "fuentes": [
+        "boostr",
+        "google"
+      ]
+    },
+    {
+      "fecha": "2026-09-18",
+      "nombre": "Independencia Nacional",
+      "fuentes": [
+        "boostr",
+        "google"
+      ]
+    },
+    {
+      "fecha": "2026-09-19",
+      "nombre": "Día de las Glorias del Ejército",
+      "fuentes": [
+        "boostr",
+        "google"
+      ]
+    },
+    {
+      "fecha": "2026-10-12",
+      "nombre": "Encuentro de Dos Mundos",
+      "fuentes": [
+        "boostr",
+        "google"
+      ]
+    },
+    {
+      "fecha": "2026-10-31",
+      "nombre": "Día de las Iglesias Evangélicas y Protestantes",
+      "fuentes": [
+        "boostr",
+        "google"
+      ]
+    },
+    {
+      "fecha": "2026-11-01",
+      "nombre": "Día de Todos los Santos",
+      "fuentes": [
+        "boostr",
+        "google"
+      ]
+    },
+    {
+      "fecha": "2026-12-08",
+      "nombre": "Inmaculada Concepción",
+      "fuentes": [
+        "boostr",
+        "google"
+      ]
+    },
+    {
+      "fecha": "2026-12-25",
+      "nombre": "Navidad",
+      "fuentes": [
+        "boostr",
+        "google"
+      ]
+    }
+  ]
+}

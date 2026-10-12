@@ -65,6 +65,8 @@ Todo en español, en los documentos, los comentarios, los mensajes del registro 
 | `docs/modos-de-falla.md` | Cada falla real: síntoma, causa y qué se hizo |
 | `docs/runbook.md` | Qué hacer cuando falla, paso a paso |
 | `marcar.py` | El script que corre la rutina, el mismo para todos |
+| `rutina/instrucciones.md` | Lo que hace la rutina en cada corrida, paso a paso |
+| `rutina/plantilla.md` | Las instrucciones fijas de cada rutina y su programación |
 | `tests/` | Pruebas sin red: horarios, cambio de hora, feriados, calendarios, lectura de Buk |
 | `feriados/` | Lista de feriados por año, con su fuente |
 | `requirements.txt` | Playwright con versión fija |

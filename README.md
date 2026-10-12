@@ -67,7 +67,8 @@ sin lista, no marca, porque no puede saber qué días son feriados.
 1. Entra a Buk con el correo y la clave de la persona, que viven solo en su entorno de Claude.
 2. Aprieta el botón del turno en el portal.
 3. Lee la respuesta de Buk y la clasifica en una de tres: marcado, rechazado o sin confirmar.
-4. Deja una línea en `registro.md` con la hora, el turno, el resultado y el texto de Buk.
+4. Espera el comprobante que Buk manda por correo y lo usa como confirmación. La sesión de la
+   rutina en claude.ai queda como registro de lo que hizo y por qué (ADR 0007).
 
 Un «sin confirmar» cuenta como intento: no se reintenta ese día, porque pudo haber entrado.
 
