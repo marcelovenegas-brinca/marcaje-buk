@@ -31,7 +31,9 @@ Estas reglas no tienen excepción, aunque una prueba, un plazo o un pedido parez
 
 - Primero el test, después el código. Todo cambio de comportamiento trae un test en `tests/` que
   falla antes del cambio y pasa después. Los tests no usan red ni tocan Buk.
-- Antes de cada commit corren los tests: `python -m pytest`. Si fallan, no se commitea.
+- Antes de cada commit corren los tests: `.venv/bin/python -m pytest`. Si fallan, no se commitea.
+  La primera vez se arma el entorno local con `python3 -m venv .venv` y
+  `.venv/bin/python -m pip install -r requirements-dev.txt`.
 - Toda falla nueva se registra en `docs/modos-de-falla.md` con su síntoma, su causa real y qué se
   hizo, y lleva un test que la reproduce. Se diagnostica la causa antes de cambiar código, y se le
   muestra a Marcelo antes de arreglarla.
@@ -61,5 +63,7 @@ Todo en español, en los documentos, los comentarios, los mensajes del registro 
 | `tests/` | Pruebas sin red: horarios, cambio de hora, feriados, calendarios, lectura de Buk |
 | `feriados/` | Lista de feriados por año, con su fuente |
 | `requirements.txt` | Playwright con versión fija |
+| `requirements-dev.txt` | Lo que se necesita para correr los tests en el computador |
+| `entorno/configuracion.sh` | El script de configuración que va en el entorno de cada persona en claude.ai |
 | `mac/` | La versión del Mac, apagada, como respaldo |
 | `HANDOFF.md` | Por dónde retomar |

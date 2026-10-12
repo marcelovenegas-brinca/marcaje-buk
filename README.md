@@ -97,8 +97,9 @@ Un «sin confirmar» cuenta como intento: no se reintenta ese día, porque pudo 
 
 ## Preguntas abiertas
 
-- Si Buk deja entrar desde la nube de Claude sin pedir verificación. Se responde en el hito 1,
-  con una prueba que no marca.
+- Buk sí deja entrar desde la nube de Claude sin pedir verificación, respondido el 11-oct en el
+  hito 1: la prueba entró con correo y clave, vio los botones de entrada y salida, y salió sin
+  marcar (`RESULTADO PRUEBA_OK`).
 - Buk sí acepta una marca sin ubicación, respondido el 2-oct por la versión del Mac: avisó «No
   pudimos obtener tu ubicación exacta. Puedes marcar igualmente», y el comprobante muestra la
   entrada registrada a las 08:30:26. Queda por decidir en el paso 5 cómo se trata ese aviso.
