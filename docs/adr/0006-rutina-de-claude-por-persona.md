@@ -1,6 +1,7 @@
 # 0006, corre como rutina de Claude, una por persona
 
 Estado: aceptada, 11-oct-2026. Reemplaza a 0002 y a la forma de leer los calendarios de 0005.
+La skill y la descarga del repo con GitHub las reemplaza 0008.
 
 ## Contexto
 

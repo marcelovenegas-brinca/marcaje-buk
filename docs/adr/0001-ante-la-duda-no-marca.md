@@ -1,6 +1,6 @@
 # 0001, ante la duda, no marca
 
-Estado: aceptada, 25-sep-2026
+Estado: aceptada, 25-sep-2026. El `registro.md` como prueba y como estado lo reemplaza 0007
 
 ## Contexto
 
