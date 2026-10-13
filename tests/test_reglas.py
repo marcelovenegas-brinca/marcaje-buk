@@ -309,3 +309,27 @@ def test_diagnosticar_bloquea_toda_peticion_que_podria_marcar(metodo, url):
 
 def test_diagnosticar_deja_pasar_lecturas():
     assert not marcar.bloquear_en_diagnostico("GET", "https://brinca.buk.cl/static_pages/portal")
+
+
+# Antes de apretar, la página tiene que tener el código de Buk que envía la marca. El 13-oct la
+# nube no dejó descargarlo: el botón se veía, se apretó y no envió nada.
+def test_con_el_codigo_de_buk_puede_apretar():
+    assert marcar.falta_codigo_de_buk({"jquery": True, "intercooler": True}, set()) is None
+
+
+@pytest.mark.parametrize("estado", [
+    {"jquery": False, "intercooler": False},
+    {"jquery": True, "intercooler": False},
+    {"jquery": False, "intercooler": True},
+    {},
+    None,
+])
+def test_sin_el_codigo_de_buk_no_aprieta(estado):
+    motivo = marcar.falta_codigo_de_buk(estado, set())
+    assert motivo and "sin su código" in motivo
+
+
+def test_sin_el_codigo_de_buk_dice_que_dominio_no_cargo():
+    motivo = marcar.falta_codigo_de_buk({"jquery": False, "intercooler": False},
+                                        {"dxcgedrrxtox6.cloudfront.net"})
+    assert "dxcgedrrxtox6.cloudfront.net" in motivo

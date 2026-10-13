@@ -35,6 +35,7 @@ import time as reloj
 import unicodedata
 from datetime import date, datetime, time, timedelta, timezone
 from pathlib import Path
+from urllib.parse import urlparse
 from zoneinfo import ZoneInfo
 
 ZONA = ZoneInfo("America/Santiago")
@@ -271,6 +272,28 @@ LEER_MENSAJES = """
 """
 
 
+# El script principal de Buk crea window.jQuery y window.Intercooler, y es Intercooler el que envía
+# la marca al apretar el botón. Sin él, el botón se ve pero no hace nada (falla del 13-oct).
+CODIGO_DE_BUK = """
+() => ({jquery: !!window.jQuery, intercooler: typeof window.Intercooler !== 'undefined'})
+"""
+
+
+def falta_codigo_de_buk(estado, caidos):
+    """None si la página tiene el código de Buk que envía la marca; si no, el porqué, para avisar.
+
+    `estado` es lo que devuelve CODIGO_DE_BUK y `caidos`, los dominios cuyos scripts no cargaron.
+    """
+    estado = estado if isinstance(estado, dict) else {}
+    if estado.get("jquery") and estado.get("intercooler"):
+        return None
+    motivo = "la página de Buk cargó sin su código, así que el botón no enviaría nada"
+    if caidos:
+        motivo += (". No cargaron los scripts de %s: revisa que el dominio de Buk esté en la red "
+                   "del entorno" % ", ".join(sorted(caidos)[:6]))
+    return motivo
+
+
 def abrir_navegador(p):
     """Usa el Chrome del sistema si existe; si no, el Chromium que trae Playwright."""
     for nombre, opciones in (("chrome del sistema", {"channel": "chrome"}), ("chromium de playwright", {})):
@@ -304,8 +327,13 @@ def entrar(pagina, correo, clave):
         fin("ERROR", "Buk no aceptó el inicio de sesión. Revisa BUK_CORREO y BUK_CLAVE")
 
 
-def en_el_portal(accion):
-    """Entra a Buk, abre el portal y le pasa la página a `accion`, que termina con fin()."""
+def en_el_portal(accion, exigir_codigo=True):
+    """Entra a Buk, abre el portal y le pasa la página a `accion`, que termina con fin().
+
+    Si la página no tiene el código de Buk que envía la marca, termina con ERROR antes de llamar a
+    `accion`, salvo que `exigir_codigo` sea False: el diagnóstico la quiere ver igual, y recibe el
+    motivo como tercer argumento.
+    """
     correo, clave = os.environ.get("BUK_CORREO"), os.environ.get("BUK_CLAVE")
     if not correo or not clave:
         fin("ERROR", "faltan las variables BUK_CORREO y BUK_CLAVE en el entorno de la rutina")
@@ -318,6 +346,14 @@ def en_el_portal(accion):
         # Sin permiso de ubicación a propósito: no se inventa una posición. Buk marca igual
         # (comprobado el 2 y el 7-oct: sus comprobantes dicen «Sin coordenadas»).
         pagina = nav.new_context(locale="es-CL", timezone_id="America/Santiago").new_page()
+        caidos = set()
+
+        def anotar(peticion):
+            if peticion.resource_type == "script":
+                caidos.add(urlparse(peticion.url).hostname)
+
+        pagina.on("requestfailed", anotar)
+        pagina.on("response", lambda r: anotar(r.request) if r.status >= 400 else None)
         try:
             entrar(pagina, correo, clave)
             pagina.goto(PORTAL, wait_until="networkidle", timeout=45000)
@@ -325,6 +361,11 @@ def en_el_portal(accion):
             fin("ERROR", "no se pudo cargar Buk (%s)" % type(e).__name__)
         if not pagina.locator(".box-marcaje").count():
             fin("ERROR", "el portal cargó sin la caja de marcaje (%s)" % pagina.url[:80])
+        motivo = falta_codigo_de_buk(pagina.evaluate(CODIGO_DE_BUK), caidos)
+        if not exigir_codigo:
+            accion(pagina, cual, motivo)
+        if motivo:
+            fin("ERROR", motivo)
         accion(pagina, cual)
 
 
@@ -444,7 +485,7 @@ def modo_diagnosticar(turno):
     """
     from urllib.parse import parse_qs
 
-    def mirar(pagina, cual):
+    def mirar(pagina, cual, codigo):
         cortadas, consola = [], []
         pagina.on("console", lambda m: consola.append("%s: %s" % (m.type, m.text[:160]))
                   if m.type in ("error", "warning") else None)
@@ -460,7 +501,8 @@ def modo_diagnosticar(turno):
                 ruta.continue_()
 
         pagina.context.route("**/*", filtrar)
-        informe = {"navegador": cual, "antes": pagina.evaluate(ESTADO_BOTON, SELECTOR_DOM[turno])}
+        informe = {"navegador": cual, "codigo_de_buk": codigo or "cargado",
+                   "antes": pagina.evaluate(ESTADO_BOTON, SELECTOR_DOM[turno])}
         for forma in ("clic_playwright", "clic_js"):
             desde = len(cortadas)
             try:
@@ -479,7 +521,7 @@ def modo_diagnosticar(turno):
         informe["consola"] = consola[-12:]
         fin("DIAGNOSTICO", json.dumps(informe, ensure_ascii=False))
 
-    en_el_portal(mirar)
+    en_el_portal(mirar, exigir_codigo=False)
 
 
 def modo_probar():
