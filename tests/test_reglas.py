@@ -291,3 +291,21 @@ def test_configuracion_completa():
 def test_configuracion_invalida(datos):
     with pytest.raises(ValueError):
         marcar.leer_configuracion(datos)
+
+
+# El modo diagnosticar aprieta el botón con las peticiones bloqueadas en el propio navegador.
+# Este filtro es lo que garantiza que no llegue ninguna marca a Buk (falla del 13-oct).
+
+@pytest.mark.parametrize("metodo, url", [
+    ("POST", "https://brinca.buk.cl/employee_portal/web_marking/marcaje?sentido=ENTRADA"),
+    ("GET", "https://brinca.buk.cl/employee_portal/web_marking/marcaje?sentido=ENTRADA"),
+    ("PUT", "https://brinca.buk.cl/cualquier/cosa"),
+    ("POST", "https://www.clarity.ms/collect"),
+    ("post", "https://brinca.buk.cl/otra"),
+])
+def test_diagnosticar_bloquea_toda_peticion_que_podria_marcar(metodo, url):
+    assert marcar.bloquear_en_diagnostico(metodo, url)
+
+
+def test_diagnosticar_deja_pasar_lecturas():
+    assert not marcar.bloquear_en_diagnostico("GET", "https://brinca.buk.cl/static_pages/portal")

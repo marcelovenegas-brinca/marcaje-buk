@@ -6,6 +6,7 @@
     python3 marcar.py salida hoy.json               marca la salida
     python3 marcar.py confirmar salida correo.json  ¿llegó el comprobante de Buk?
     python3 marcar.py probar                        entra a Buk, mira y sale SIN marcar
+    python3 marcar.py diagnosticar entrada          aprieta con las peticiones cortadas: NO marca
 
 La decisión de marcar vive acá, con tests. Claude solo trae los datos de los calendarios y del
 correo, y los deja en hoy.json tal como los leyó (ADR 0007).
@@ -410,6 +411,77 @@ def modo_confirmar(turno, ruta_correo):
     fin(*confirmar(leer_json(ruta_correo), datetime.now(ZONA).date(), turno))
 
 
+def bloquear_en_diagnostico(metodo, url):
+    """True si la petición podría marcar. En diagnóstico se corta en el navegador, antes de salir."""
+    return metodo.upper() != "GET" or "web_marking" in url
+
+
+SELECTOR_DOM = {
+    "entrada": ".btn-asistencia:not(.btn-marcaje-salida)",
+    "salida": ".btn-asistencia.btn-marcaje-salida",
+}
+ESTADO_BOTON = """
+(sel) => {
+  const b = [...document.querySelectorAll(sel)].find(x => x.offsetParent !== null);
+  if (!b) return {existe: false};
+  const r = b.getBoundingClientRect();
+  const encima = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+  const eventos = window.jQuery && jQuery._data ? Object.keys(jQuery._data(b, 'events') || {}) : null;
+  return {existe: true, deshabilitado: b.disabled, texto: b.innerText.trim(), clases: b.className,
+          ic_post_to: b.getAttribute('ic-post-to'), intercooler: typeof window.Intercooler,
+          jquery: window.jQuery ? jQuery.fn.jquery : null, eventos_jquery: eventos,
+          encima: encima ? encima.tagName + '.' + (encima.className || '').toString().slice(0, 60) : null,
+          es_el_boton: encima === b || b.contains(encima)};
+}
+"""
+
+
+def modo_diagnosticar(turno):
+    """Aprieta el botón con toda petición que podría marcar cortada en el navegador, y cuenta qué pasó.
+
+    Sirve para entender por qué una marca no llegó (falla del 13-oct). No puede marcar: antes del
+    clic, el navegador corta todo lo que no sea una lectura y todo lo que vaya a web_marking.
+    """
+    from urllib.parse import parse_qs
+
+    def mirar(pagina, cual):
+        cortadas, consola = [], []
+        pagina.on("console", lambda m: consola.append("%s: %s" % (m.type, m.text[:160]))
+                  if m.type in ("error", "warning") else None)
+        pagina.on("pageerror", lambda e: consola.append("pageerror: %s" % str(e)[:160]))
+
+        def filtrar(ruta):
+            pedido = ruta.request
+            if bloquear_en_diagnostico(pedido.method, pedido.url):
+                cortadas.append({"metodo": pedido.method, "url": pedido.url[:110],
+                                 "campos": sorted(parse_qs(pedido.post_data or "").keys())})
+                ruta.abort()
+            else:
+                ruta.continue_()
+
+        pagina.context.route("**/*", filtrar)
+        informe = {"navegador": cual, "antes": pagina.evaluate(ESTADO_BOTON, SELECTOR_DOM[turno])}
+        for forma in ("clic_playwright", "clic_js"):
+            desde = len(cortadas)
+            try:
+                if forma == "clic_playwright":
+                    pagina.locator(BOTON[turno]).first.click(timeout=15000)
+                else:
+                    pagina.evaluate("(sel) => [...document.querySelectorAll(sel)]"
+                                    ".find(x => x.offsetParent !== null).click()", SELECTOR_DOM[turno])
+                error = None
+            except Exception as e:
+                error = "%s: %s" % (type(e).__name__, str(e)[:200])
+            reloj.sleep(8)
+            informe[forma] = {"error": error, "peticiones_cortadas": cortadas[desde:],
+                              "mensajes": pagina.evaluate(LEER_MENSAJES),
+                              "boton_despues": pagina.evaluate(ESTADO_BOTON, SELECTOR_DOM[turno])}
+        informe["consola"] = consola[-12:]
+        fin("DIAGNOSTICO", json.dumps(informe, ensure_ascii=False))
+
+    en_el_portal(mirar)
+
+
 def modo_probar():
     def mirar(pagina, cual):
         if not all(pagina.locator(BOTON[t]).count() for t in BOTON):
@@ -430,6 +502,8 @@ def main():
         modo_confirmar(args[1], args[2])
     elif args == ["probar"]:
         modo_probar()
+    elif len(args) == 2 and args[0] == "diagnosticar" and args[1] in BOTON:
+        modo_diagnosticar(args[1])
     else:
         sys.exit(__doc__)
 
