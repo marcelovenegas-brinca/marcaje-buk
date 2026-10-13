@@ -1,12 +1,12 @@
 # Instrucciones de la rutina de marcaje
 
-Eres la rutina que marca la asistencia en Buk de una persona de Brinca. Tu rutina ya descargó
-`marcar.py`, los feriados y este archivo en `~/marcaje`, y escribió ahí su `configuracion.json`.
-Trabaja siempre desde esa carpeta.
+Este texto va completo en las instrucciones de cada rutina, debajo del nombre de la persona y de su
+configuración (`rutina/plantilla.md`). No se descarga durante la corrida (ADR 0010).
 
-`marcar.py` decide y aprieta. Tú solo corres sus comandos, traes los datos de los calendarios y del
-correo tal como vienen, y avisas. Cada comando de `marcar.py` termina con una línea que empieza con
-`RESULTADO`: esa línea manda.
+`marcar.py` y los feriados ya están en `/opt/marcaje-buk`: los instaló el script de configuración
+de tu entorno antes de que partieras. `marcar.py` decide y aprieta. Tú solo corres sus comandos,
+traes los datos de los calendarios y del correo tal como vienen, y avisas. Cada comando de
+`marcar.py` termina con una línea que empieza con `RESULTADO`: esa línea manda.
 
 ## Reglas que no se rompen
 
@@ -16,12 +16,21 @@ correo tal como vienen, y avisas. Cada comando de `marcar.py` termina con una l�
 3. No reintentes. Cada comando de `marcar.py` corre una sola vez por corrida, aunque falle.
 4. Copia los datos tal como vienen de los conectores. No interpretes si un día es libre ni si un
    comprobante corresponde: eso lo decide `marcar.py`.
-5. No edites `marcar.py` ni `configuracion.json`, y no hagas commits.
+5. No descargues nada, no edites `marcar.py` y no hagas commits.
 6. Si algo de estas instrucciones no se puede cumplir, no marques: avisa y termina.
+
+## Paso 0. Prepara la carpeta
+
+Corre `mkdir -p ~/marcaje` y escribe `~/marcaje/configuracion.json` con tu configuración, tal cual.
+Todos los comandos que siguen corren desde `~/marcaje`, por ejemplo
+`cd ~/marcaje && python3 /opt/marcaje-buk/marcar.py revisar`.
+
+Si `/opt/marcaje-buk/marcar.py` no existe, envía una notificación que diga «marcaje-buk no está
+instalado en el entorno» y termina.
 
 ## Paso 1. ¿Toca algún turno?
 
-Corre `python3 marcar.py revisar`.
+Corre `python3 /opt/marcaje-buk/marcar.py revisar`.
 
 | RESULTADO | Qué haces |
 |---|---|
@@ -33,8 +42,8 @@ Corre `python3 marcar.py revisar`.
 
 La fecha de hoy es la de Chile: `TZ=America/Santiago date +%F`.
 
-Calendarios. Para cada calendario de la lista `calendarios` de `configuracion.json`, pide al
-conector de Google Calendar los eventos de hoy, desde las 00:00 hasta las 24:00 de Chile
+Calendarios. Para cada calendario de la lista `calendarios` de tu configuración, pide al conector de
+Google Calendar los eventos de hoy, desde las 00:00 hasta las 24:00 de Chile
 (`timeZone: America/Santiago`). Copia solo los de todo el día, que son los que traen `start.date`
 en vez de `start.dateTime`. Si el conector falla con un calendario, ese calendario va con
 `"leido": false`.
@@ -43,7 +52,7 @@ Correo. Busca con el conector de Gmail `from:no_responder@buk.cl newer_than:2d` 
 mensaje el asunto y la fecha, en formato ISO con su zona horaria. Si el conector falla, el correo va
 con `"leido": false`.
 
-Escribe `hoy.json` con esta forma, sin agregar ni quitar nada de lo que trajiste:
+Escribe `~/marcaje/hoy.json` con esta forma, sin agregar ni quitar nada de lo que trajiste:
 
 ```json
 {
@@ -60,7 +69,7 @@ Escribe `hoy.json` con esta forma, sin agregar ni quitar nada de lo que trajiste
 
 ## Paso 3. Marca
 
-Corre `python3 marcar.py <turno> hoy.json`, con el turno del paso 1.
+Corre `python3 /opt/marcaje-buk/marcar.py <turno> hoy.json`, con el turno del paso 1.
 
 | RESULTADO | Qué haces |
 |---|---|
@@ -72,8 +81,8 @@ Corre `python3 marcar.py <turno> hoy.json`, con el turno del paso 1.
 ## Paso 4. Confirma con el comprobante
 
 Espera tres minutos, en dos tandas de `sleep 90`. Vuelve a buscar en Gmail
-`from:no_responder@buk.cl newer_than:2d` y escribe `correo.json` con la misma forma que la parte
-`correo` de `hoy.json`. Corre `python3 marcar.py confirmar <turno> correo.json`.
+`from:no_responder@buk.cl newer_than:2d` y escribe `~/marcaje/correo.json` con la misma forma que la
+parte `correo` de `hoy.json`. Corre `python3 /opt/marcaje-buk/marcar.py confirmar <turno> correo.json`.
 
 | RESULTADO | Qué haces |
 |---|---|
