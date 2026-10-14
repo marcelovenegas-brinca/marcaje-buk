@@ -98,8 +98,9 @@ Revisa la hora con `date -u +%Y-%m-%dT%H:%M:%SZ` y crea una rutina de una sola c
 de dos minutos:
 
 - Nombre: `Marcaje Buk: prueba (no marca)`.
-- Entorno: el `id` del paso 4. Sin repositorio. Sin conectores. Modelo `claude-sonnet-5`.
-  Herramientas: `Bash` y `Read`.
+- Entorno: el `id` del paso 4. Sin repositorio. Sin conectores: una rutina creada sin indicarlos se
+  lleva todos los de la persona, así que justo después de crearla actualízala con
+  `"clear_mcp_connections": true`. Modelo `claude-sonnet-5`. Herramientas: `Bash` y `Read`.
 - Instrucciones:
 
 ```text
