@@ -13,8 +13,9 @@ cada momento.
 | [0004](0004-feriados-en-el-repo.md) | Los feriados viven en el repo, con control mensual | aceptada. El control mensual no existe en la versión de rutinas: la lista se revisa cada diciembre |
 | [0005](0005-dias-libres-desde-el-calendario.md) | Los días libres salen de los dos calendarios, Brinca y personal | aceptada, la lectura la cambia 0006 |
 | [0006](0006-rutina-de-claude-por-persona.md) | Corre como rutina de Claude, una por persona | aceptada, la instalación la cambia 0008 |
-| [0007](0007-como-corre-un-turno.md) | Cómo corre un turno: el script decide, Claude trae los datos | aceptada |
+| [0007](0007-como-corre-un-turno.md) | Cómo corre un turno: el script decide, Claude trae los datos | aceptada, el ensayo antes de marcar lo cambia 0012 |
 | [0008](0008-como-lo-obtiene-cualquiera.md) | Cómo lo obtiene cualquier persona de Brinca | aceptada, la cambian 0009 y 0010 |
 | [0009](0009-configuracion-en-la-rutina.md) | La configuración de cada persona va en sus rutinas, no en su entorno | aceptada |
 | [0010](0010-codigo-en-el-entorno-instrucciones-en-la-rutina.md) | El código llega con el entorno y las instrucciones van en la rutina | aceptada |
 | [0011](0011-pais-y-zona-por-persona.md) | Cada persona configura su país y su zona horaria | propuesta |
+| [0012](0012-marca-desde-el-primer-dia.md) | La instalación deja las rutinas marcando desde el primer día | aceptada |

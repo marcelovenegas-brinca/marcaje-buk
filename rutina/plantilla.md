@@ -18,7 +18,7 @@ Sigue estas instrucciones al pie de la letra.
 La configuración, en una línea (ADR 0009):
 
 ```json
-{"horario": "L-J 08:30-18:00; V 08:30-14:30", "pais": "CL", "calendarios": ["persona@brinca.com"], "modo": "ensayo"}
+{"horario": "L-J 08:30-18:00; V 08:30-14:30", "pais": "CL", "calendarios": ["persona@brinca.com"], "modo": "marcar"}
 ```
 
 ## Programación

@@ -23,8 +23,9 @@ vacaciones, licencia, permiso o libre en su calendario. Si algo falla, no marcan
    formulario del entorno. Si la pega en el chat, no la repitas y pídele que la cambie en Buk.
 2. Nunca marques en Buk para probar. La prueba usa `python3 marcar.py probar`, que entra y sale sin
    apretar nada.
-3. Las rutinas se crean en modo `ensayo`. Pasan a `marcar` solo cuando la persona lo pide, después
-   de ver un ensayo bueno (ver «Pasar de ensayo a marcar»).
+3. Las rutinas se crean en modo `marcar`: marcan desde el primer turno (ADR 0012). Antes de
+   crearlas, la prueba del paso 5 tiene que haber dado `PRUEBA_OK`. La parte de la persona es
+   verificar sus comprobantes los primeros días (ver «Verificar los primeros días»).
 4. Cada rutina lleva solo los conectores de Gmail y Google Calendar, sin repositorio.
 5. Si un paso no se puede cumplir, detente, explica qué falta y no sigas al siguiente.
 
@@ -127,7 +128,7 @@ Arma el texto de cada rutina como dice `rutina/plantilla.md`: el nombre de la pe
 configuración en una línea y el cuerpo de `rutina/instrucciones.md`. La configuración:
 
 ```json
-{"horario": "<su horario>", "pais": "CL", "calendarios": ["<su calendario de Brinca>", "<otros, si los hay>"], "modo": "ensayo"}
+{"horario": "<su horario>", "pais": "CL", "calendarios": ["<su calendario de Brinca>", "<otros, si los hay>"], "modo": "marcar"}
 ```
 
 Crea una rutina por cada combinación distinta de turno y hora. Los días con la misma hora van
@@ -153,9 +154,14 @@ conectores se lleva todos los de la persona: indica esos dos de forma explícita
 Dile a la persona, en una tabla corta:
 
 - Qué quedó instalado, con el enlace a cada rutina.
-- Que por ahora está en ensayo: entra a Buk y no aprieta. Mientras tanto sigue marcando a mano.
-- Cuándo es el primer ensayo, y que mañana le puede pedir a Claude «revisa mi ensayo de
-  marcaje-buk».
+- Que marca sola desde el próximo turno, y cuál es.
+- Que desde ahora deja de marcar a mano. Si un día quiere marcar a mano, que lo haga antes de la
+  hora del turno: la rutina ve el comprobante y no marca encima. Después de la rutina quedarían dos
+  marcas.
+- Que su parte es verificar durante la primera semana: por cada turno le tiene que llegar el
+  comprobante de Buk. Si un turno no lo trae, que revise su asistencia en Buk, marque a mano si
+  falta y se lo cuente a quien le compartió marcaje-buk.
+- Que le puede pedir a Claude «revisa mi marcaje de hoy».
 - Que para vacaciones basta con anotarlas en su calendario de Brinca con una de las cuatro
   palabras, o pedírselo a Claude.
 - Que si algo falla le llega una notificación de Claude, y que el comprobante de Buk sigue siendo
@@ -163,18 +169,19 @@ Dile a la persona, en una tabla corta:
 
 ## Después de instalar
 
-### Revisar un ensayo
+### Verificar los primeros días y revisar el marcaje
 
 Con `list_runs` y `get_run_log` de cada rutina, muéstrale la línea de resumen y las líneas
-`RESULTADO` de las corridas del día. Un ensayo bueno termina en `ENSAYO` en su hora, o en `NO_TOCA`
-cuando no tocaba.
+`RESULTADO` de las corridas del día, y busca con el conector de Gmail
+`from:no_responder@buk.cl newer_than:1d`. Un turno bueno termina en `CONFIRMADO` en su hora, con su
+comprobante, o en `NO_TOCA` cuando no tocaba. Si un turno quedó sin comprobante, que revise su
+asistencia en Buk y marque a mano si falta.
 
-### Pasar de ensayo a marcar
+### Dejar de marcar sin desinstalar
 
-Solo si la persona lo pide y ya vio al menos un ensayo bueno de entrada y uno de salida. Actualiza
-las instrucciones de sus rutinas cambiando `"modo": "ensayo"` por `"modo": "marcar"`. Dile que desde
-ese momento deja de marcar a mano. Si un día marca a mano antes que la rutina, la rutina lo ve en el
-comprobante y no marca encima.
+Si la persona quiere que las rutinas sigan corriendo pero sin apretar, por ejemplo mientras se
+revisa una falla, actualiza las instrucciones de sus rutinas cambiando `"modo": "marcar"` por
+`"modo": "ensayo"`: hacen todo menos apretar el botón. Para volver, al revés.
 
 ### Cambiar el horario o los calendarios
 

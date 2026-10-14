@@ -1,6 +1,6 @@
 # 0007, cómo corre un turno en la rutina
 
-Estado: aceptada, 12-oct-2026. Reemplaza de 0001 el `registro.md` como prueba y como estado.
+Estado: aceptada, 12-oct-2026. Reemplaza de 0001 el `registro.md` como prueba y como estado. El ensayo antes de marcar lo cambia 0012.
 
 ## Contexto
 
