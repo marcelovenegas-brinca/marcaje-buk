@@ -8,7 +8,7 @@ El registro de asistencia es un documento laboral. Los dos errores posibles no p
 
 | Error | Qué afirma | Cómo se corrige |
 |---|---|---|
-| Marca de más | Que Marcelo trabajó un día que no trabajó, o a una hora que no es | Hay que explicarlo a Recursos Humanos. Es una afirmación falsa en un documento laboral |
+| Marca de más | Que la persona trabajó un día que no trabajó, o a una hora que no es | Hay que explicarlo a Recursos Humanos. Es una afirmación falsa en un documento laboral |
 | Marca que falta | Nada | Se marca a mano en un minuto |
 
 La versión del Mac lo aprendió con casos: el 22-sep el registro dijo «marcado» por una salida que
@@ -28,7 +28,7 @@ Toda verificación que no puede decidir falla hacia no marcar, y avisa. En concr
 
 ## Consecuencias
 
-- Habrá días en que no marque aunque debía, y Marcelo tendrá que hacerlo a mano. Es el costo
+- Habrá días en que no marque aunque debía, y la persona tendrá que hacerlo a mano. Es el costo
   aceptado.
 - Cada «no marco» tiene que avisar, o se vuelve una falla silenciosa. Por eso existe la alarma de
   Healthchecks (ver 0002).

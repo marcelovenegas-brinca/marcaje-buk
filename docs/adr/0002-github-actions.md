@@ -4,11 +4,11 @@ Estado: reemplazada por 0006, 11-oct-2026. Aceptada el 25-sep-2026
 
 ## Contexto
 
-La primera versión corrió en el Mac, con `launchd` y el Chrome de Marcelo. Funcionó, pero falló
+La primera versión corrió en el Mac, con `launchd` y el Chrome de su dueño. Funcionó, pero falló
 cinco veces en tres días por causas del Mac: el Escritorio protegido por macOS, el Mac dormido o
 recién despertado sin red, y una ventana de Meet adelante. Además, con el Mac apagado no marca.
 
-Marcelo quiere que corra solo, sin depender de su equipo.
+La idea es que corra solo, sin depender de un computador.
 
 ## Decisión
 
@@ -26,8 +26,7 @@ Corre en GitHub Actions, en un repo privado propio, con:
 ## Consecuencias
 
 - La clave de Buk queda guardada en un servidor externo. GitHub Secrets la cifra y nadie puede
-  leerla de vuelta, pero existe fuera del Mac. La clave vieja quedó expuesta el 24-sep y se cambia
-  antes de guardarla.
+  leerla de vuelta, pero existe fuera del Mac.
 - El repo es aparte de `Brinca_00`, porque el servidor descarga el repo completo junto con la
   clave. Así solo tiene acceso a este script.
 - El servidor está en Estados Unidos. Queda por probar que Buk lo deje entrar (paso 8).
@@ -42,5 +41,5 @@ Corre en GitHub Actions, en un repo privado propio, con:
 | Seguir en el Mac | Depende de que el Mac esté encendido, despierto y con Chrome |
 | Rutina de Claude Code | No tiene un lugar cifrado para la clave, gasta del plan en cada corrida y pone un modelo de lenguaje a decidir cada vez sobre un documento laboral |
 | Vercel | Sus funciones no están hechas para cargar un navegador completo. Habría que imitar el formulario de Buk (ver 0003) |
-| Servidor propio o Raspberry Pi | Funciona, pero hay que mantenerlo. Queda como plan B, por decisión de Marcelo del 3-oct, si GitHub falla o Buk bloquea sus servidores |
+| Servidor propio o Raspberry Pi | Funciona, pero hay que mantenerlo. Queda como plan B, decidido el 3-oct, si GitHub falla o Buk bloquea sus servidores |
 | API oficial de Buk | La mejor opción, pero depende de Recursos Humanos. Si se habilita, esta decisión se reemplaza |

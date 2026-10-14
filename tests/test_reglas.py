@@ -122,7 +122,7 @@ def evento(titulo, inicio="2026-10-13", fin="2026-10-14", todo_el_dia=True):
 
 
 @pytest.mark.parametrize("titulo", [
-    "Vacaciones", "VACACIONES Marcelo", "Día libre", "Licencia médica", "Permiso administrativo",
+    "Vacaciones", "VACACIONES equipo", "Día libre", "Licencia médica", "Permiso administrativo",
     "Licencias", "Día Líbre",
 ])
 def test_dia_libre_con_las_cuatro_palabras(titulo):
@@ -173,7 +173,7 @@ def test_no_esta_marcado(turno, c):
 
 # hoy.json: lo que Claude trajo de los conectores, y lo que el script decide con eso
 
-CALENDARIOS = ["marcelo.venegas@brinca.com", "venegast.marcelo@gmail.com"]
+CALENDARIOS = ["persona@brinca.com", "persona@gmail.com"]
 
 
 def hoy_json(**cambios):

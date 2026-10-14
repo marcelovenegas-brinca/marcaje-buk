@@ -1,8 +1,8 @@
 # Modos de falla
 
 Cada falla real del marcaje en la nube: qué se vio, cuál fue la causa y qué se hizo. Una fila por
-falla nueva, con el test que la reproduce. Las fallas de la versión del Mac, del 22-sep al 8-oct,
-están en la tabla «Modos de falla conocidos» de su `agente.md`.
+falla nueva, con el test que la reproduce. Las fallas de la primera versión,
+que corría en un Mac, quedaron fuera de este repo.
 
 | Fecha | Síntoma | Causa real | Qué se hizo | Test |
 |---|---|---|---|---|

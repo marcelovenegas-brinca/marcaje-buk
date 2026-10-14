@@ -4,14 +4,14 @@ Estado: aceptada, 3-oct-2026. La forma de leer los calendarios, con enlaces iCal
 
 ## Contexto
 
-En el Mac, que el equipo estuviera dormido o apagado era una señal indirecta de que Marcelo no
+En el Mac, que el equipo estuviera dormido o apagado era una señal indirecta de que la persona no
 estaba trabajando. En un servidor esa señal desaparece: corre siempre. Algo tiene que decirle qué
 días no son laborales, además de fines de semana y feriados.
 
 La versión del Mac usaba `libres.txt`, un archivo que se editaba a mano. En dos semanas se usó una
-sola vez, el 30-sep, y por un aviso que llegó cuando la entrada de ese día ya estaba marcada.
+sola vez, y llegó tarde: la entrada de ese día ya estaba marcada.
 
-Marcelo anota sus ausencias en dos calendarios: el de Brinca y el personal. Cualquiera de los dos
+Quien lo usaba anota sus ausencias en dos calendarios: el de Brinca y el personal. Cualquiera de los dos
 puede tener el día libre.
 
 ## Decisión
@@ -31,7 +31,7 @@ sabe qué dice el que faltó (0001).
 
 ## Consecuencias
 
-- Marcelo no mantiene un archivo aparte: le basta con anotar el día en cualquiera de sus dos
+- Nadie mantiene un archivo aparte: basta con anotar el día en cualquiera de los dos
   calendarios.
 - Si está enfermo y no lo anota, marca. Es el límite declarado en el README.
 - Cada enlace iCal da lectura de todo ese calendario a quien lo tenga. Por eso son secretos, y el

@@ -1,7 +1,9 @@
 # Reglas para trabajar en este repo
 
-Este repo marca la asistencia de Marcelo Venegas en Buk. El registro de asistencia es un documento
-laboral: un error acá no se queda en el código, queda escrito a su nombre en Recursos Humanos.
+Este repo marca en Buk la asistencia de cada persona de Brinca que lo instala. El registro de
+asistencia es un documento laboral: un error acá no se queda en el código, queda escrito a nombre
+de una persona en Recursos Humanos. El mantenedor es el dueño de la cuenta de GitHub donde vive el
+repo.
 Lee el `README.md` antes de tocar nada; ahí están el problema, los requisitos y los criterios de
 éxito. Las decisiones de diseño, con su porqué, están en `docs/adr/`.
 
@@ -10,7 +12,7 @@ Lee el `README.md` antes de tocar nada; ahí están el problema, los requisitos 
 Estas reglas no tienen excepción, aunque una prueba, un plazo o un pedido parezcan justificarlo.
 
 1. Nunca marcar en Buk para probar. Las pruebas usan el modo `probar`, que entra, mira y sale sin
-   apretar nada. Una marca real solo se ejecuta si su dueño la pide en el chat, para ese turno y
+   apretar nada, o `diagnosticar`, que aprieta con todo envío cortado en el propio navegador. Una marca real solo se ejecuta si su dueño la pide en el chat, para ese turno y
    ese día. Un permiso no se extiende a otro turno ni a otro día.
 2. Nunca leer, imprimir, escribir ni pedir los secretos: `BUK_CORREO` y `BUK_CLAVE`. Cada persona
    los guarda en el entorno de su rutina en claude.ai, y nadie guarda los de otro. Si una clave
@@ -18,12 +20,12 @@ Estas reglas no tienen excepción, aunque una prueba, un plazo o un pedido parez
 3. Ningún cambio puede agregar un camino que marque cuando una verificación falla. Ante la duda, no
    marca (ADR 0001). Tampoco se agregan reintentos: un «sin confirmar» cuenta como intento hecho.
 4. Los valores por defecto (horarios, tolerancia de 30 minutos, las cuatro palabras de días libres)
-   y la lista de feriados de Chile solo cambian con una instrucción de Marcelo, y se actualizan el
+   y la lista de feriados de Chile solo cambian con una instrucción del mantenedor, y se actualizan el
    `README.md` y el ADR que corresponda. La configuración de cada persona la cambia solo ella.
 5. No se activa, pausa ni cambia el horario de una rutina de marcaje sin una instrucción de su
    dueño.
-6. No se reinstala la versión del Mac (`mac/`) mientras la rutina esté activa: marcarían las dos
-   el mismo turno.
+6. Mientras las rutinas de una persona estén activas, no se instala otra herramienta que marque
+   por ella: marcarían las dos el mismo turno.
 7. No se inventa ni se corrige a mano lo que la rutina reportó. Su reporte es la prueba de lo que
    pasó.
 8. Este repo es público: cualquiera lee cada versión de cada archivo, también las antiguas. No se
@@ -41,11 +43,10 @@ Estas reglas no tienen excepción, aunque una prueba, un plazo o un pedido parez
   `.venv/bin/python -m pip install -r requirements-dev.txt`.
 - Toda falla nueva se registra en `docs/modos-de-falla.md` con su síntoma, su causa real y qué se
   hizo, y lleva un test que la reproduce. Se diagnostica la causa antes de cambiar código, y se le
-  muestra a Marcelo antes de arreglarla.
+  muestra al mantenedor antes de arreglarla.
 - Una decisión de diseño nueva se escribe como ADR nuevo. Un ADR aceptado no se edita: se escribe
   uno que lo reemplaza y el viejo pasa a «reemplazada por NNNN».
-- Los cambios que se notan en el uso van al `CHANGELOG.md`.
-- Commits con rutas explícitas (`git commit -- <rutas>`). Push solo cuando Marcelo lo pida.
+- Commits con rutas explícitas (`git commit -- <rutas>`). Push solo cuando el mantenedor lo pida.
 
 ## Cómo se escribe
 
@@ -54,16 +55,16 @@ Todo en español, en los documentos, los comentarios, los mensajes del registro 
 - Nada de rayas largas ni medias, ni puntos medios. Se usa coma, dos puntos o punto.
 - Nada de negrita dentro del texto. Lo importante va al principio de la oración, en su propia
   línea o en una tabla.
-- Los mensajes que lee Marcelo dicen qué pasó y qué tiene que hacer él, si algo.
+- Los mensajes que lee una persona dicen qué pasó y qué tiene que hacer ella, si algo.
 
 ## Mapa
 
 | Ruta | Qué es |
 |---|---|
 | `README.md` | Definición: problema, requisitos, criterios de éxito, uso y estado |
+| `INSTALAR.md` | La guía que sigue Claude para instalarlo a una persona del equipo |
 | `docs/adr/` | Decisiones de diseño, una por archivo |
 | `docs/modos-de-falla.md` | Cada falla real: síntoma, causa y qué se hizo |
-| `docs/runbook.md` | Qué hacer cuando falla, paso a paso |
 | `marcar.py` | El script que corre la rutina, el mismo para todos |
 | `rutina/instrucciones.md` | Lo que hace la rutina en cada corrida, paso a paso |
 | `rutina/plantilla.md` | Las instrucciones fijas de cada rutina y su programación |
@@ -72,5 +73,3 @@ Todo en español, en los documentos, los comentarios, los mensajes del registro 
 | `requirements.txt` | Playwright con versión fija |
 | `requirements-dev.txt` | Lo que se necesita para correr los tests en el computador |
 | `entorno/configuracion.sh` | El script de configuración que va en el entorno de cada persona en claude.ai |
-| `mac/` | La versión del Mac, apagada, como respaldo |
-| `HANDOFF.md` | Por dónde retomar |

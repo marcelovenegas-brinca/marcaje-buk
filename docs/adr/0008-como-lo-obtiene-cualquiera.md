@@ -5,7 +5,7 @@ con GitHub. La configuración en el entorno la reemplaza 0009, y la descarga dur
 
 ## Contexto
 
-Marcelo quiere compartirlo pronto con el equipo, y que cada persona lo use con su propia clave. Hay
+La idea es compartirlo pronto con el equipo, y que cada persona lo use con su propia clave. Hay
 cuatro datos que mandan:
 
 1. El equipo no usa GitHub.
@@ -29,7 +29,7 @@ pasajes que no debían publicarse. Lo que no puede quedar público no se escribe
 
 Las rutinas no tienen repo. En cada corrida descargan `marcar.py`, la lista de feriados y las
 instrucciones de la rutina desde la versión marcada `estable`. `estable` es una etiqueta de git que
-mueve solo Marcelo, cuando una versión pasó sus tests y el ensayo. Lo que se sube a `main` no le
+mueve solo el mantenedor del repo, cuando una versión pasó sus tests y el ensayo. Lo que se sube a `main` no le
 llega a nadie hasta entonces.
 
 ### La instalación es una frase
@@ -75,11 +75,11 @@ Su correo, su clave, su horario y su país son variables de su entorno: `BUK_COR
 ## Consecuencias
 
 - Nadie necesita una cuenta de GitHub ni instalar nada en su computador.
-- Un arreglo le llega a todos cuando Marcelo mueve `estable`, sin reinstalar. Un error también: por
+- Un arreglo le llega a todos cuando el mantenedor mueve `estable`, sin reinstalar. Un error también: por
   eso `estable` se mueve solo después de los tests y del ensayo, y ante la duda el script no marca
   (0001).
 - Las rutinas siguen instrucciones que descargan del repo. Quien pueda escribir en el repo controla
-  lo que hacen las rutinas de todos. Solo Marcelo tiene permiso de escritura, y así se mantiene.
+  lo que hacen las rutinas de todos. Solo el mantenedor tiene permiso de escritura, y así se mantiene.
 - Cada persona gasta su propio plan: unas 88 corridas al mes, la mitad de segundos.
 - Las rutinas de Claude están en vista previa. Si cambian, se ajusta `INSTALAR.md`.
 - Por ahora solo Chile. Los feriados de otro país se agregan cuando alguien los necesite.

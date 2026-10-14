@@ -11,7 +11,7 @@ Dos cosas cambiaron después de 0002, que había elegido GitHub Actions:
    mensaje en pantalla. Las 5 habían entrado, y el comprobante que Buk manda por correo acertó
    siempre. La confirmación confiable es el correo. Desde GitHub, leerlo exige guardar una clave
    que abre todo el correo de la persona.
-2. Marcelo quiere que cualquier persona de Brinca lo pueda instalar. El equipo ya usa Claude, no
+2. La meta pasó a ser que cualquier persona de Brinca lo pueda instalar. El equipo ya usa Claude, no
    GitHub, y la configuración que imagina es una conversación: horario, país, vacaciones.
 
 ## Decisión

@@ -10,11 +10,11 @@ cada una choca con algo ya decidido o con un dato nuevo:
 1. La rutina no guarda nada entre corridas: cada sesión parte de cero. El `registro.md` de 0001,
    que era a la vez la prueba y el estado que evita marcar dos veces, obligaría a la rutina a
    escribir en el repo, que es público, la asistencia de cada persona. Y tiene que funcionar como
-   una aplicación que cualquier persona de Brinca pueda usar, no solo Marcelo.
+   una aplicación que cualquier persona de Brinca pueda usar, no solo quien la creó.
 2. El perfil de Buk no le muestra al empleado sus marcas del día (revisado el 11-oct). El único
    lugar donde queda si un turno ya se marcó, también a mano, es el comprobante que Buk manda por
    correo.
-3. Los comprobantes de Marcelo llegan a su Gmail personal, y el conector de Gmail lee el de
+3. Los comprobantes pueden llegar a un Gmail personal, y el conector de Gmail lee el de
    Brinca. El conector de Calendar sí ve los dos calendarios.
 4. Las rutinas se programan en hora UTC, y Chile cambia de horario dos veces al año: el 5-abr y el
    6-sep en 2026, el 4-abr y el 5-sep en 2027.
@@ -82,7 +82,7 @@ Si los comprobantes llegan a un correo que el conector no lee, un filtro en ese 
 al de Brinca: todo lo que venga de `no_responder@buk.cl`, y nada más. Gmail exige verificar la
 dirección de destino con un código que llega al correo de Brinca, y ese código se lee con el
 conector. El filtro es una regla permanente en el correo de la persona: se crea solo con su
-permiso explícito. Para Marcelo se crea el 12-oct. Para el resto del equipo, la instalación (0008)
+permiso explícito. La instalación (0008)
 revisa a qué correo les llegan y, si hace falta, pide el permiso y arma el mismo filtro.
 
 ## Consecuencias

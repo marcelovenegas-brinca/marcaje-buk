@@ -1,20 +1,51 @@
 # Marcaje en Buk
 
-Marca la entrada y la salida de Marcelo Venegas en el portal de Buk de Brinca, todos los días
-hábiles, desde una rutina de Claude en la nube. No depende del computador.
+Marca la entrada y la salida en Buk de cada persona que lo instala, todos los días hábiles, desde
+rutinas de Claude en la nube. No depende del computador de nadie.
 
-> Estado: en construcción. La versión que marca hoy es la del Mac, en `mac/`. Este README se
-> completa paso a paso; las secciones de uso se escriben cuando exista lo que describen.
+> Estado: marca de verdad desde el 13-oct-2026, y en piloto con parte del equipo de Brinca. Para
+> instalarlo, ver [`INSTALAR.md`](INSTALAR.md).
 
 ## El problema
 
-Marcelo tiene que marcar entrada y salida en el portal de Buk de Brinca todos los días hábiles, y
-se le olvida. Son dos clics al día, unos 450 al año, y cada olvido se corrige a mano después.
+Quien trabaja con Buk marca su entrada y su salida en el portal todos los días hábiles. Es un gesto
+chico, pero se repite cientos de veces al año, y se olvida. Un olvido no desaparece: se vuelve una
+regularización manual. La persona pide corregir la marca, y administración y finanzas la revisa, la
+corrige y la cuadra con la nómina.
 
-Entre el 22 y el 25 de septiembre de 2026 funcionó una primera versión en el Mac. Marcó bien, pero
-depende de que el Mac esté encendido y con Chrome abierto, y falló cinco veces por causas del Mac:
-el Escritorio protegido por macOS, el Mac dormido, sin red al despertar, una ventana de Meet
-adelante. Este repo lleva el marcaje a la nube.
+| Al año | 1 persona | 5 personas | 10 personas |
+|---|---|---|---|
+| Marcas | 472 | 2.360 | 4.720 |
+| Clics | 1.416 a 2.832 | 7.080 a 14.160 | 14.160 a 28.320 |
+| Horas marcando | 8 a 16 | 39 a 79 | 79 a 157 |
+| Horas en regularizaciones | 3 a 8 | 15 a 40 | 30 a 80 |
+
+Los supuestos detrás de la tabla:
+
+- 236 días hábiles: 261 de lunes a viernes en 2026, menos 10 feriados que caen en día hábil y 15
+  días de vacaciones. Dos marcas por día.
+- 3 clics por marca con la sesión abierta, y 6 cuando hay que entrar con correo y clave.
+- 1 a 2 minutos por marca, contando el cambio de contexto.
+- 1 a 2 olvidos por persona al mes, y 15 a 20 minutos por regularización entre la persona y
+  administración.
+
+El número que más pesa es el de regularizaciones, y es el más fácil de medir: basta contar cuántas
+procesa administración en un mes.
+
+## Qué hace
+
+Cada persona tiene tres rutinas de Claude en la nube: la entrada, la salida de lunes a jueves y la
+salida del viernes. En cada turno:
+
+1. Revisa que hoy toque marcar: no es fin de semana ni feriado, y la hora calza con el turno.
+2. Revisa los calendarios de la persona y los comprobantes de Buk que ya tiene en el correo: si hoy
+   es un día libre o el turno ya está marcado, no hace nada.
+3. Entra a Buk con el correo y la clave de la persona, que viven solo en su entorno de Claude, y
+   aprieta el botón del turno.
+4. Espera el comprobante que Buk manda por correo y lo usa como confirmación.
+
+Las decisiones las toma `marcar.py`, con reglas probadas. Claude solo trae los datos de los
+calendarios y del correo, corre los comandos y avisa (ADR 0007).
 
 ## La regla que gobierna todo
 
@@ -24,68 +55,57 @@ El registro de asistencia es un documento laboral. Una marca de más, en un día
 afirma algo falso. Una marca que falta se corrige a mano en un minuto. Por eso cada verificación,
 cuando no puede decidir, falla hacia no marcar, y avisa.
 
-## Qué tiene que cumplir
-
-### Cuándo marca
+## Cuándo marca
 
 | Turno   | Lunes a jueves | Viernes |
 | ------- | -------------- | ------- |
 | Entrada | 08:30          | 08:30   |
 | Salida  | 18:00          | 14:30   |
 
-Siempre en hora de Chile, también cuando el país cambia de horario.
+Es el horario de Brinca, y cada persona puede tener el suyo. Siempre en hora de Chile, también
+cuando el país cambia de horario.
 
-### Cuándo no marca
+## Cuándo no marca
 
-| Situación                                                         | Qué hace                                                            |
-| ----------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Fin de semana                                                     | No marca                                                            |
-| Feriado en Chile                                                  | No marca                                                            |
-| No pudo saber si hoy es feriado                                   | No marca y avisa                                                    |
-| Día libre en el calendario de Brinca o en el personal: vacaciones, licencia, permiso o libre | No marca                                                            |
-| No pudo leer alguno de los dos calendarios                        | No marca y avisa                                                    |
-| Ese turno ya se marcó hoy                                         | No marca                                                            |
-| Llegó más de 30 minutos tarde a la hora del turno                 | No marca y avisa. Marcar a destiempo sería registrar una hora falsa |
-| Buk pide un código o una verificación extra al entrar             | No marca y avisa                                                    |
+| Situación | Qué hace |
+| --- | --- |
+| Fin de semana | No marca |
+| Feriado en Chile | No marca |
+| Falta la lista de feriados del año | No marca y avisa |
+| Día libre en alguno de sus calendarios: un evento de todo el día con vacaciones, licencia, permiso o libre | No marca |
+| No pudo leer alguno de sus calendarios | No marca y avisa |
+| Ese turno ya se marcó hoy, también a mano | No marca |
+| La rutina llegó más de 30 minutos tarde a la hora del turno | No marca y avisa. Marcar a destiempo sería registrar una hora falsa |
+| Buk pide un código o una verificación extra al entrar | No marca y avisa |
+| La página de Buk cargó sin su código | No marca y avisa qué dominio falta |
 
-### De dónde salen los feriados
+## De dónde salen los feriados
 
-Una vez al año, en diciembre, se levanta la lista completa del año siguiente desde fuentes
-oficiales de Chile y se guarda en el repo, en `feriados/AAAA.json`, con la fuente de cada fecha.
-Es la lista que manda. Así el marcaje no depende de que una página responda justo a las 08:30.
+La lista de cada año vive en el repo, en `feriados/AAAA.json`, armada desde dos fuentes con la
+fuente de cada fecha. Así el marcaje no depende de que una página responda justo a la hora de
+marcar (ADR 0004). El mantenedor la revisa cada diciembre para el año siguiente, y también si una
+ley agrega o mueve un feriado durante el año. Si llega un año sin lista, no marca.
 
-La lista rara vez cambia durante el año, pero a veces sí: una ley puede agregar o mover un
-feriado ya empezado el año. Por eso, una vez al mes, el servidor compara la lista guardada contra
-una fuente en línea. Si difieren, no cambia nada solo: avisa, y la lista se corrige a mano con la
-fuente a la vista. Si hoy aparece como feriado en cualquiera de las dos, no marca.
+Por ahora funciona solo en Chile. El ADR 0011 describe cómo se suma otro país sin depender del
+mantenedor.
 
-Si en diciembre no existe la lista del año siguiente, el servidor avisa. Si llega el 1 de enero
-sin lista, no marca, porque no puede saber qué días son feriados.
+## Cómo avisa
 
-### Cómo marca
-
-1. Entra a Buk con el correo y la clave de la persona, que viven solo en su entorno de Claude.
-2. Aprieta el botón del turno en el portal.
-3. Lee la respuesta de Buk y la clasifica en una de tres: marcado, rechazado o sin confirmar.
-4. Espera el comprobante que Buk manda por correo y lo usa como confirmación. La sesión de la
-   rutina en claude.ai queda como registro de lo que hizo y por qué (ADR 0007).
+| Qué pasó | Cómo se entera la persona |
+| --- | --- |
+| Marcó | Buk le manda su comprobante al correo |
+| Falló, fue rechazado o quedó sin confirmar | La rutina le manda una notificación |
+| La rutina ni siquiera corrió | No le llega el comprobante de Buk |
 
 Un «sin confirmar» cuenta como intento: no se reintenta ese día, porque pudo haber entrado.
 
-### Cómo avisa
-
-| Qué pasó                                   | Cómo se entera Marcelo                                                 |
-| ------------------------------------------ | ---------------------------------------------------------------------- |
-| Marcó                                      | Buk manda su comprobante al correo personal                            |
-| Falló, fue rechazado o quedó sin confirmar | La rutina le avisa                                                     |
-| La rutina ni siquiera corrió               | No llega el comprobante de Buk. Healthchecks queda para después (ADR 0006) |
-
-### Lo que no hace
+## Lo que no hace
 
 - No corrige marcas pasadas ni marca días anteriores.
-- No inventa una ubicación. Si Buk la exige para marcar, se decide aparte.
+- No inventa una ubicación. Buk acepta la marca sin ella.
 - No guarda la clave en ningún archivo, ni la imprime, ni siquiera en los errores.
-- No decide si Marcelo trabajó: eso lo dicen sus calendarios. Si está enfermo y no lo anota, marca.
+- No decide si la persona trabajó: eso lo dicen sus calendarios. Si está enferma y no lo anota,
+  marca.
 
 ## Cómo sabremos que funciona
 
@@ -96,13 +116,35 @@ Un «sin confirmar» cuenta como intento: no se reintenta ese día, porque pudo 
 | Fallas avisadas | Todas, el mismo día |
 | Corridas que no ocurrieron y nadie supo | Cero |
 
-## Preguntas abiertas
+## Lo que se aprendió en el camino
 
-- Buk sí deja entrar desde la nube de Claude sin pedir verificación, respondido el 11-oct en el
-  hito 1: la prueba entró con correo y clave, vio los botones de entrada y salida, y salió sin
-  marcar (`RESULTADO PRUEBA_OK`).
-- Buk sí acepta una marca sin ubicación, respondido el 2-oct por la versión del Mac: avisó «No
-  pudimos obtener tu ubicación exacta. Puedes marcar igualmente», y el comprobante muestra la
-  entrada registrada a las 08:30:26. Queda por decidir en el paso 5 cómo se trata ese aviso.
-- Cómo se confirma una marca desde el servidor. Entre el 29-sep y el 5-oct el mensaje en pantalla
-  falló tres veces como confirmación y el comprobante que Buk manda por correo acertó las tres.
+- Buk deja entrar desde la nube de Claude con correo y clave, sin pedir verificación extra.
+- Buk acepta una marca sin ubicación. Avisa «No pudimos obtener tu ubicación exacta. Puedes marcar
+  igualmente», y la marca entra.
+- El mensaje en pantalla no sirve como confirmación. En la primera versión falló 5 de 11 veces, y
+  las 5 marcas sí habían entrado. El comprobante que Buk manda por correo acertó siempre.
+- La red de la nube tiene que dejar pasar el dominio desde donde Buk sirve el código de su página.
+  Sin él, el botón se ve pero no envía nada. Cada falla real está en
+  [`docs/modos-de-falla.md`](docs/modos-de-falla.md).
+
+## Instalarlo
+
+Hace falta un plan Pro o Max de Claude, los conectores de Gmail y Google Calendar de Brinca, y la
+clave de Buk. No hace falta cuenta de GitHub ni instalar nada en el computador. En la app de
+escritorio de Claude, pestaña Code, se pega:
+
+> Instala marcaje-buk desde github.com/marcelovenegas-brinca/marcaje-buk
+
+Claude sigue [`INSTALAR.md`](INSTALAR.md) y pide solo lo que nadie puede hacer por la persona.
+
+## Cómo está hecho
+
+| Ruta | Qué es |
+|---|---|
+| `marcar.py` | El script que decide y aprieta, el mismo para todos |
+| `rutina/` | Lo que hace cada rutina en cada corrida, y cómo se arma su texto |
+| `entorno/configuracion.sh` | El script del entorno de cada persona: instala Playwright y descarga `marcar.py` y los feriados |
+| `feriados/` | La lista de feriados de cada año, con sus fuentes |
+| `tests/` | 101 pruebas sin red: horarios, cambio de hora, feriados, calendarios y lectura de Buk |
+| `docs/adr/` | Las decisiones de diseño, con su porqué y lo que se descartó |
+| `docs/modos-de-falla.md` | Cada falla real: síntoma, causa y qué se hizo |

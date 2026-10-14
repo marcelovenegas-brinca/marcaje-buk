@@ -82,6 +82,7 @@ Corre `python3 /opt/marcaje-buk/marcar.py <turno> hoy.json`, con el turno del pa
 
 Espera tres minutos: corre `sleep 180` en segundo plano, con la opción `run_in_background` de la
 herramienta Bash, y sigue cuando te avise que terminó. Un `sleep` en primer plano lo bloquea la nube.
+No programes otro despertar, como `ScheduleWakeup`: el aviso del `sleep` basta.
 Vuelve a buscar en Gmail
 `from:no_responder@buk.cl newer_than:2d` y escribe `~/marcaje/correo.json` con la misma forma que la
 parte `correo` de `hoy.json`. Corre `python3 /opt/marcaje-buk/marcar.py confirmar <turno> correo.json`.

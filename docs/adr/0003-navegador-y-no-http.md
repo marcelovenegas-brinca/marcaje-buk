@@ -6,7 +6,7 @@ Estado: aceptada, 25-sep-2026
 
 Hay dos maneras de marcar desde un servidor:
 
-1. Abrir un navegador invisible, entrar y apretar el botón, como lo haría Marcelo.
+1. Abrir un navegador invisible, entrar y apretar el botón, como lo haría la persona.
 2. Imitar lo que el navegador le manda a Buk: una petición web directa, sin navegador.
 
 La segunda es más liviana, pero el botón de Buk no es un formulario simple. Tiene
