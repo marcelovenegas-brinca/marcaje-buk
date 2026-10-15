@@ -129,8 +129,8 @@ Un «sin confirmar» cuenta como intento: no se reintenta ese día, porque pudo 
 
 ## Instalarlo
 
-Hace falta un plan Pro o Max de Claude, los conectores de Gmail y Google Calendar de Brinca, y la
-clave de Buk. No hace falta cuenta de GitHub ni instalar nada en el computador. En la app de
+Hace falta un plan Pro, Max o Team de Claude, en la cuenta que la persona va a seguir usando, los
+conectores de Gmail y Google Calendar de Brinca, y la clave de Buk. No hace falta cuenta de GitHub ni instalar nada en el computador. En la app de
 escritorio de Claude, pestaña Code, se pega:
 
 > Instala marcaje-buk desde github.com/marcelovenegas-brinca/marcaje-buk

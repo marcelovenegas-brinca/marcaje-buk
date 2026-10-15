@@ -3,6 +3,10 @@
 Estado: aceptada, 12-oct-2026. Reemplaza de 0006 la skill `/marcaje-buk` y la descarga del repo
 con GitHub. La configuración en el entorno la reemplaza 0009, y la descarga durante la corrida, 0010.
 
+Nota del 15-oct-2026: el dato 2 del contexto cambió. El equipo se está pasando al plan Team, y como
+las rutinas y el entorno quedan en la cuenta con que se instalan, cada persona instala desde la
+cuenta que va a seguir usando. Está en el paso 1 de `INSTALAR.md`.
+
 ## Contexto
 
 La idea es compartirlo pronto con el equipo, y que cada persona lo use con su propia clave. Hay
@@ -67,7 +71,7 @@ Su correo, su clave, su horario y su país son variables de su entorno: `BUK_COR
 
 | Requisito | Por qué |
 |---|---|
-| Plan Pro o Max de Claude | Las rutinas en la nube no existen en el plan gratis |
+| Plan Pro, Max o Team de Claude | Las rutinas en la nube no existen en el plan gratis |
 | La app de escritorio de Claude | Para que Claude cree las rutinas durante la instalación |
 | Gmail y Google Calendar de Brinca conectados en Claude | Para revisar el calendario y el comprobante |
 | Su clave de Buk | La escribe ella, nadie más |

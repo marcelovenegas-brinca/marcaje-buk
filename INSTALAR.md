@@ -33,8 +33,9 @@ vacaciones, licencia, permiso o libre en su calendario. Si algo falla, no marcan
 
 | Requisito | Cómo se revisa | Si falta |
 |---|---|---|
-| Plan Pro o Max de Claude | Que puedas usar la herramienta de rutinas (`RemoteTrigger`) | Las rutinas no existen en el plan gratis. Detente |
-| Gmail y Google Calendar de Brinca conectados | Carga la skill `schedule`: trae la lista de conectores con su `connector_uuid`, y la de entornos con su `id` | Que los conecte en https://claude.ai/customize/connectors con su cuenta de Brinca, y vuelva a pedir la instalación |
+| Plan Pro, Max o Team de Claude | Que puedas usar la herramienta de rutinas (`RemoteTrigger`) | Las rutinas no existen en el plan gratis. Detente. En el plan Team, si Claude responde que la organización desactivó las rutinas o las sesiones en la nube, detente: las activa el dueño de la organización |
+| La cuenta de Claude que va a seguir usando | Pregúntale si se va a cambiar de cuenta de Claude pronto, por ejemplo de su plan personal al plan Team de la empresa | Las rutinas y el entorno quedan en la cuenta con que se instalan, y dejan de correr cuando esa cuenta se cancela. Si se va a cambiar, detente: que instale desde la cuenta nueva cuando ya esté en ella |
+| Gmail y Google Calendar de Brinca conectados | Carga la skill `schedule`: trae la lista de conectores con su `connector_uuid`, y la de entornos con su `id` | Que los conecte en https://claude.ai/customize/connectors con su cuenta de Brinca, y vuelva a pedir la instalación. En el plan Team, si no aparecen para conectar, el dueño de la organización tiene que agregarlos primero |
 | Su clave de Buk | Pregúntale si la sabe | Que la recupere en Buk antes de seguir |
 
 ## Paso 2. Tres preguntas
@@ -187,6 +188,13 @@ revisa una falla, actualiza las instrucciones de sus rutinas cambiando `"modo": 
 
 Actualiza las instrucciones de las tres rutinas con la configuración nueva y, si cambió una hora,
 su programación. No hace falta abrir el entorno.
+
+### Cambiar de cuenta de Claude
+
+Las rutinas y el entorno no se mueven de una cuenta a otra: se instala de nuevo, desde el paso 1,
+en la cuenta nueva. Antes, la persona pausa las tres rutinas de la cuenta anterior en
+https://claude.ai/code/routines. Si quedan activas las de las dos cuentas, las dos corren el mismo
+turno a la misma hora y pueden marcarlo dos veces.
 
 ### Cambiar la clave de Buk
 
