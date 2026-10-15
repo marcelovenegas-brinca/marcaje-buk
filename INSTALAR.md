@@ -34,8 +34,8 @@ vacaciones, licencia, permiso o libre en su calendario. Si algo falla, no marcan
 | Requisito | Cómo se revisa | Si falta |
 |---|---|---|
 | Plan Pro, Max o Team de Claude | Que puedas usar la herramienta de rutinas (`RemoteTrigger`) | Las rutinas no existen en el plan gratis. Detente. En el plan Team, si Claude responde que la organización desactivó las rutinas o las sesiones en la nube, detente: las activa el dueño de la organización |
-| La cuenta de Claude que va a seguir usando | Pregúntale si se va a cambiar de cuenta de Claude pronto, por ejemplo de su plan personal al plan Team de la empresa | Las rutinas y el entorno quedan en la cuenta con que se instalan, y dejan de correr cuando esa cuenta se cancela. Si se va a cambiar, detente: que instale desde la cuenta nueva cuando ya esté en ella |
-| Gmail y Google Calendar de Brinca conectados | Carga la skill `schedule`: trae la lista de conectores con su `connector_uuid`, y la de entornos con su `id` | Que los conecte en https://claude.ai/customize/connectors con su cuenta de Brinca, y vuelva a pedir la instalación. En el plan Team, si no aparecen para conectar, el dueño de la organización tiene que agregarlos primero |
+| La cuenta de Claude donde la quiere | Sirve la personal o la de la empresa. Pregúntale con qué cuenta tiene abierta la app: ahí quedan las rutinas y el entorno | Si la quiere en otra, que cierre sesión, entre con esa y vuelva a pedir la instalación. Si sabe que se va a cambiar de cuenta pronto, explícale «Cambiar de cuenta de Claude» y que elija: instalar ahora y de nuevo el día del cambio, o esperar a ese día |
+| Gmail y Google Calendar de Brinca conectados, aunque use su cuenta personal de Claude | Carga la skill `schedule`: trae la lista de conectores con su `connector_uuid`, y la de entornos con su `id` | Que los conecte en https://claude.ai/customize/connectors con su cuenta de Brinca, y vuelva a pedir la instalación. En el plan Team, si no aparecen para conectar, el dueño de la organización tiene que agregarlos primero |
 | Su clave de Buk | Pregúntale si la sabe | Que la recupere en Buk antes de seguir |
 
 ## Paso 2. Tres preguntas
@@ -165,6 +165,9 @@ Dile a la persona, en una tabla corta:
 - Que le puede pedir a Claude «revisa mi marcaje de hoy».
 - Que para vacaciones basta con anotarlas en su calendario de Brinca con una de las cuatro
   palabras, o pedírselo a Claude.
+- Que las rutinas viven en la cuenta de Claude con que la instaló. Si se cambia de cuenta, por
+  ejemplo de la personal a la de la empresa, tiene que instalarla de nuevo en la nueva (ver
+  «Cambiar de cuenta de Claude»).
 - Que si algo falla le llega una notificación de Claude, y que el comprobante de Buk sigue siendo
   la prueba de cada marca.
 
@@ -195,6 +198,10 @@ Las rutinas y el entorno no se mueven de una cuenta a otra: se instala de nuevo,
 en la cuenta nueva. Antes, la persona pausa las tres rutinas de la cuenta anterior en
 https://claude.ai/code/routines. Si quedan activas las de las dos cuentas, las dos corren el mismo
 turno a la misma hora y pueden marcarlo dos veces.
+
+Cuando la cuenta anterior se cancela, sus rutinas dejan de correr sin avisar. Por eso el cambio se
+hace el mismo día en que la persona empieza a usar la cuenta nueva, para que no quede un turno sin
+marcar.
 
 ### Cambiar la clave de Buk
 

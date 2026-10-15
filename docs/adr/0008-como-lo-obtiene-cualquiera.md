@@ -3,9 +3,10 @@
 Estado: aceptada, 12-oct-2026. Reemplaza de 0006 la skill `/marcaje-buk` y la descarga del repo
 con GitHub. La configuración en el entorno la reemplaza 0009, y la descarga durante la corrida, 0010.
 
-Nota del 15-oct-2026: el dato 2 del contexto cambió. El equipo se está pasando al plan Team, y como
-las rutinas y el entorno quedan en la cuenta con que se instalan, cada persona instala desde la
-cuenta que va a seguir usando. Está en el paso 1 de `INSTALAR.md`.
+Nota del 15-oct-2026: el dato 2 del contexto cambió. Parte del equipo se está pasando al plan Team,
+no todos. Sirve la cuenta personal o la de la empresa, y como las rutinas y el entorno quedan en la
+cuenta con que se instalan, quien se cambia de cuenta instala de nuevo en la nueva. Está en el paso
+1 y en «Cambiar de cuenta de Claude» de `INSTALAR.md`.
 
 ## Contexto
 
