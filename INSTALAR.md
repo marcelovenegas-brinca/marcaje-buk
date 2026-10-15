@@ -11,6 +11,11 @@ te va a pedir solo lo que nadie puede hacer por ti.
 Si eres Claude: sigue los pasos en orden. Habla con la persona en español, en frases cortas, sin
 tecnicismos. Antes de cada acción que cambie algo en su cuenta, dile qué vas a hacer.
 
+Funciona igual en Mac y en Windows. Tiene que ser una sesión Local de la pestaña Code: una sesión en
+la nube no puede crear rutinas, y si estás en una, pídele que abra una Local con cualquier carpeta.
+Para los comandos en el computador usa la consola que tengas: Bash en Mac, y en Windows con Git, o
+PowerShell en Windows. Cada comando de esta guía viene en las dos versiones.
+
 ## Qué es, para contárselo a la persona en tres líneas
 
 Tres rutinas de Claude marcan su entrada y su salida en Buk, en la nube, sin depender de su
@@ -28,6 +33,25 @@ vacaciones, licencia, permiso o libre en su calendario. Si algo falla, no marcan
    verificar sus comprobantes los primeros días (ver «Verificar los primeros días»).
 4. Cada rutina lleva solo los conectores de Gmail y Google Calendar, sin repositorio.
 5. Si un paso no se puede cumplir, detente, explica qué falta y no sigas al siguiente.
+
+## Paso 0. Traer los archivos que se copian tal cual
+
+Las rutinas y el entorno llevan el texto exacto de tres archivos del repo, en la versión `estable`.
+No los leas con una herramienta que resuma, como WebFetch: descárgalos a una carpeta
+`marcaje-buk-instalacion` dentro de la carpeta de la sesión y léelos con `Read`.
+
+| Archivo | Dirección |
+|---|---|
+| `plantilla.md` | `https://raw.githubusercontent.com/marcelovenegas-brinca/marcaje-buk/estable/rutina/plantilla.md` |
+| `instrucciones.md` | `https://raw.githubusercontent.com/marcelovenegas-brinca/marcaje-buk/estable/rutina/instrucciones.md` |
+| `configuracion.sh` | `https://raw.githubusercontent.com/marcelovenegas-brinca/marcaje-buk/estable/entorno/configuracion.sh` |
+
+| Consola | Comando, uno por archivo |
+|---|---|
+| Bash | `mkdir -p marcaje-buk-instalacion && curl -fsSL -o marcaje-buk-instalacion/<archivo> <dirección>` |
+| PowerShell | `New-Item -ItemType Directory -Force -Path marcaje-buk-instalacion; Invoke-WebRequest -UseBasicParsing -Uri <dirección> -OutFile marcaje-buk-instalacion\<archivo>`. Si falla, `curl.exe -fsSL -o marcaje-buk-instalacion\<archivo> <dirección>` |
+
+Si una descarga falla, detente: sin esos textos no se puede armar nada.
 
 ## Paso 1. Revisar que tenga lo necesario
 
@@ -85,7 +109,7 @@ debajo del cuadro de texto, «Nube», «Agregar entorno en la nube». Dale estos
 | Dominios permitidos, uno por línea | `brinca.buk.cl`, `dxcgedrrxtox6.cloudfront.net`, `api.boostr.cl`, `cdn.playwright.dev`, `playwright.download.prss.microsoft.com`, `playwright.azureedge.net` |
 | Lista predeterminada de gestores de paquetes | Marcada |
 | Variables de entorno | `BUK_CORREO=` seguido del correo con que entra a Buk, y en otra línea `BUK_CLAVE=` seguido de su clave. Esta línea la escribe ella |
-| Script de configuración | El contenido de `entorno/configuracion.sh` de este repo, tal cual |
+| Script de configuración | El contenido de `configuracion.sh`, el que bajaste en el paso 0, tal cual |
 
 `dxcgedrrxtox6.cloudfront.net` es de donde Buk sirve el código de su página. Sin él la página carga
 y el botón se ve, pero apretarlo no envía la marca.
@@ -96,8 +120,8 @@ entorno salvo para cambiar la clave. Cuando lo guarde, carga de nuevo la skill `
 
 ## Paso 5. La prueba que no marca
 
-Revisa la hora con `date -u +%Y-%m-%dT%H:%M:%SZ` y crea una rutina de una sola corrida, para dentro
-de dos minutos:
+Revisa la hora en UTC y crea una rutina de una sola corrida, para dentro de dos minutos. En Bash:
+`date -u +%Y-%m-%dT%H:%M:%SZ`. En PowerShell: `(Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ')`.
 
 - Nombre: `Marcaje Buk: prueba (no marca)`.
 - Entorno: el `id` del paso 4. Sin repositorio. Sin conectores: una rutina creada sin indicarlos se
@@ -125,8 +149,8 @@ Espera a que corra y lee el resultado con `list_runs` y `get_run_log`.
 
 ## Paso 6. Las tres rutinas
 
-Arma el texto de cada rutina como dice `rutina/plantilla.md`: el nombre de la persona, su
-configuración en una línea y el cuerpo de `rutina/instrucciones.md`. La configuración:
+Arma el texto de cada rutina como dice `plantilla.md`: el nombre de la persona, su configuración en
+una línea y el cuerpo de `instrucciones.md`, los dos del paso 0, sin cambiar nada. La configuración:
 
 ```json
 {"horario": "<su horario>", "pais": "CL", "calendarios": ["<su calendario de Brinca>", "<otros, si los hay>"], "modo": "marcar"}
@@ -170,6 +194,8 @@ Dile a la persona, en una tabla corta:
   «Cambiar de cuenta de Claude»).
 - Que si algo falla le llega una notificación de Claude, y que el comprobante de Buk sigue siendo
   la prueba de cada marca.
+
+Al final, ofrécele borrar la carpeta `marcaje-buk-instalacion`: ya no se usa.
 
 ## Después de instalar
 
